@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Python</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='search.css')}}">
+</head>
+<body>
+    <header>
+        <h1>
+            <a href="/">🏠</a> Busque seu filme favorito
+        </h1>
+    </header>
+    <main>
+        <form method="get">
+            <div class="data_input">
+                <label>Título:</label>
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Título do filme que deseja"
+                    value="{{ request.args['title'] }}"
+                >
+            </div>
+            <input type="submit" value="Buscar">
+        </form>
+    </main>
+</body>
+</html>
