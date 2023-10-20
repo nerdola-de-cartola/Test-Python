@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request
 import requests
-import settings
 import ast
 import sqlite3
 
@@ -8,17 +7,40 @@ app = Flask(__name__)
 
 app.config.from_pyfile('settings.py')
 
+def dict_factory(cursor, row):
+    fields = [column[0] for column in cursor.description]
+    return {key: value for key, value in zip(fields, row)}
+
 def db_connection():
     connection = sqlite3.connect('database/database.db')
-    connection.row_factory = sqlite3.Row
+    connection.row_factory = dict_factory
     return connection
+
+def get_favorites():
+    connection = db_connection()
+
+    favorites = connection.execute(
+        "SELECT * FROM favorites"
+    ).fetchall()
+
+    connection.close()
+    print(favorites)
+    return favorites
+
+def save_favorite(film):
+    connection = db_connection()
+
+    favorites = connection.execute(
+        "INSERT INTO favorites (title, release_date, director, writer, actors, poster) VALUES (?, ?, ?, ?, ?, ?)",
+        (film["Title"], film["Released"], film["Director"], film["Writer"], film["Actors"], film["Poster"])
+    )
+
+    connection.commit()
+    connection.close()
+    return favorites
 
 @app.route("/")
 def index():
-    connection = db_connection()
-    posts = connection.execute('SELECT * FROM posts').fetchall()
-    print(posts[0]["title"])
-    connection.close()
     return render_template("index.html")
 
 @app.route("/favorites", methods=["GET", "POST"])
@@ -27,10 +49,10 @@ def favorites():
         args = request.args
 
         if(args):
-            film = args["values"]
-            settings.favorites.append(ast.literal_eval(film))
+            film = ast.literal_eval(args["values"])
+            save_favorite(film)
 
-    return render_template("favorites.html", favorites=settings.favorites)
+    return render_template("favorites.html", favorites=get_favorites())
 
 @app.route("/search/")
 def search():

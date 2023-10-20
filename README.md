@@ -8,14 +8,16 @@ Install pipenv
 
 # Initialization
 
-Install dependencies  
+Install dependencies    
 ```pipenv install```
 
-Initialize database
+Initialize database  
 ```python database/init.py```
 
 # Run
 
 Run in develop mode  
 ```pipenv run flask --app app run```
+
+Open browser  
 ```firefox localhost:5000```
