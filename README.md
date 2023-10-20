@@ -11,6 +11,9 @@ Install pipenv
 Install dependencies  
 ```pipenv install```
 
+Initialize database
+```python database/init.py```
+
 # Run
 
 Run in develop mode  

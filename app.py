@@ -2,13 +2,23 @@ from flask import Flask, render_template, request
 import requests
 import settings
 import ast
+import sqlite3
 
 app = Flask(__name__)
 
 app.config.from_pyfile('settings.py')
 
+def db_connection():
+    connection = sqlite3.connect('database/database.db')
+    connection.row_factory = sqlite3.Row
+    return connection
+
 @app.route("/")
 def index():
+    connection = db_connection()
+    posts = connection.execute('SELECT * FROM posts').fetchall()
+    print(posts[0]["title"])
+    connection.close()
     return render_template("index.html")
 
 @app.route("/favorites", methods=["GET", "POST"])
