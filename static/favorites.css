@@ -34,6 +34,12 @@ form {
 .film {
     display: flex;
     flex-direction: row;
+    gap: 20px;
+}
+
+table {
+    display: flex;
+    gap: 20px
 }
 
 input[type="text"] {
