@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Python</title>
     <link rel="stylesheet" href="{{url_for('static', filename='search.css')}}">
 </head>
+
 <body>
     <header>
         <h1>
@@ -16,15 +18,33 @@
         <form method="get">
             <div class="data_input">
                 <label>Título:</label>
-                <input
-                    type="text"
-                    name="title"
-                    placeholder="Título do filme que deseja"
-                    value="{{ request.args['title'] }}"
-                >
+                <input type="text" name="title" placeholder="Título do filme que deseja em inglês"
+                    value="{{ request.args['title'] }}">
             </div>
             <input type="submit" value="Buscar">
         </form>
+        <div>
+            {% if error %}
+                <p>Desculpe, não foi possível encontrar esse filme.</p>
+                <p>Por favor tente outro título.</p>
+            {% elif film != None %}
+                <div class="content">
+                    <table>
+                        {% for key, value in film.items() %}
+                            <tr>
+                                <td>{{ key }}</td>
+                                <td>{{ value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <img src="{{ film.Poster }}" >
+                </div>
+                <form method="post" action="{{ url_for("favorites")}}">
+                    <input type="submit" value="Adicionar aos favoritos">
+                </form>
+            {% endif %}
+        </div>
     </main>
 </body>
+
 </html>

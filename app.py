@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import requests
 
 app = Flask(__name__)
 
@@ -8,13 +9,33 @@ app.config.from_pyfile('settings.py')
 def index():
     return render_template("index.html")
 
+@app.route("/favorites", methods=["GET", "POST"])
+def favorites():
+    if request.method == 'POST':
+        return do_the_login()
+    else:
+        return render_template("favorites.html")
+
 @app.route("/search/")
 def search():
     args = request.args
+    data = None
+    error = False
 
     if(args):
         title = args["title"]
-        print(title)
-        print(app.config["OMDB_API_KEY"])
+        api_key = app.config["OMDB_API_KEY"]
+        url = f'http://www.omdbapi.com/'
+        payload = {
+            "apikey": api_key,
+            "t": title
+        }
+        response = requests.get(url, params=payload)
+        data = response.json()
+
+        print(data)
+        print(payload)
+
+        error = response.status_code != 200 or data["Response"] == "False"
     
-    return render_template("search.html")
+    return render_template("search.html", film=data, error=error)

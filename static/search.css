@@ -25,6 +25,11 @@ form {
     gap: 20px;
 }
 
+.content {
+    display: flex;
+    flex-direction: row;
+}
+
 input[type="text"] {
     width: 100%;
 }
