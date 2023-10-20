@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import requests
 import settings
-import json
+import ast
 
 app = Flask(__name__)
 
@@ -18,7 +18,7 @@ def favorites():
 
         if(args):
             film = args["values"]
-            settings.favorites.append(film)
+            settings.favorites.append(ast.literal_eval(film))
 
     return render_template("favorites.html", favorites=settings.favorites)
 

@@ -28,6 +28,12 @@ form {
 .content {
     display: flex;
     flex-direction: column;
+    gap: 40px;
+}
+
+.film {
+    display: flex;
+    flex-direction: row;
 }
 
 input[type="text"] {

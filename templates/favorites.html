@@ -18,12 +18,17 @@
         <div>
             <div class="content">
                 {% for film in favorites %}
-                    <table>
-                        <tr>
-                            <td>{{ film }}</td>
-                        </tr>
-                    </table>
-                    <img src="{{ film.Poster }}" >
+                    <div class="film">
+                        <table>
+                            {% for key, value in film.items() %}
+                                <tr>
+                                    <td>{{ key }}</td>
+                                    <td>{{ value }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        <img src="{{ film.Poster }}" />
+                    </div>
                 {% endfor %}
             </div>
         </div>
