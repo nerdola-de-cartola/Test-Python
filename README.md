@@ -3,6 +3,9 @@
 Install python  
 ```sudo apt install python3.10.13```
 
+Install sqlite  
+```sudo apt install sqlite```
+
 Install pipenv  
 ```pip install --user pipenv```
 
