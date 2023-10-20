@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request
 import requests
+import settings
+import json
 
 app = Flask(__name__)
 
@@ -12,9 +14,13 @@ def index():
 @app.route("/favorites", methods=["GET", "POST"])
 def favorites():
     if request.method == 'POST':
-        return do_the_login()
-    else:
-        return render_template("favorites.html")
+        args = request.args
+
+        if(args):
+            film = args["values"]
+            settings.favorites.append(film)
+
+    return render_template("favorites.html", favorites=settings.favorites)
 
 @app.route("/search/")
 def search():
@@ -30,12 +36,10 @@ def search():
             "apikey": api_key,
             "t": title
         }
+
         response = requests.get(url, params=payload)
+
         data = response.json()
-
-        print(data)
-        print(payload)
-
         error = response.status_code != 200 or data["Response"] == "False"
     
     return render_template("search.html", film=data, error=error)

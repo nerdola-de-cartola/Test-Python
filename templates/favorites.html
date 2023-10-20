@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Python</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='favorites.css')}}">
+</head>
+
+<body>
+    <header>
+        <h1>
+            <a href="/">🏠</a> Lista dos seus filmes favoritos
+        </h1>
+    </header>
+    <main>
+        <div>
+            <div class="content">
+                {% for film in favorites %}
+                    <table>
+                        <tr>
+                            <td>{{ film }}</td>
+                        </tr>
+                    </table>
+                    <img src="{{ film.Poster }}" >
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

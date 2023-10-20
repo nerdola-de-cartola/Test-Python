@@ -1,0 +1,45 @@
+a {
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    gap: 20px;
+}
+
+.data_input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"] {
+    width: 100%;
+}
+
+input[type="submit"] {
+    width: fit-content;
+    padding: 7px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px;
+    background-color: lightgray;
+    color: black;
+}

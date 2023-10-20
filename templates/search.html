@@ -11,7 +11,7 @@
 <body>
     <header>
         <h1>
-            <a href="/">🏠</a> Busque seu filme favorito
+            <a href="/">🏠</a> Busque o filme que deseja
         </h1>
     </header>
     <main>
@@ -39,7 +39,7 @@
                     </table>
                     <img src="{{ film.Poster }}" >
                 </div>
-                <form method="post" action="{{ url_for("favorites")}}">
+                <form method="post" action="{{ url_for("favorites", method="POST", values=film) }}">
                     <input type="submit" value="Adicionar aos favoritos">
                 </form>
             {% endif %}
